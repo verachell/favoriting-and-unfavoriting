@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<body>
+<h1>Hello world</h1>
+<input type="checkbox" class="checkbox" name="cat" id="cat" onclick="animalFunction()"> Cat
+<input type="checkbox" class="checkbox" name="dog" id="dog" onclick="animalFunction()"> Dog 
+<input type="checkbox" class="checkbox" name="elephant" id="elephant" onclick="animalFunction()"> Elephant 
+    
+<script>  
+
+function getCookie(cname) {
+// credit: this function from https://www.w3schools.com/js/js_cookies.asp
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function addFaves(str) {
+let delim = '^';
+let favecookie = getCookie('faves');
+if (favecookie.includes(str)) {
+return false;
+} else {
+let newval = favecookie + str + delim;
+document.cookie = 'faves=' + newval;
+return true;
+}}
+
+function removeFaves(str) {
+let delim = '^';
+let favecookie = getCookie('faves');
+let torem = str + delim;
+let removed = favecookie.replace(torem, "");
+document.cookie = 'faves=' + removed;
+}
+
+
+function animalFunction(){
+var caller = event.target;
+iden = caller.id;
+if (caller.checked == true){
+addFaves(caller.id);
+} else {
+removeFaves(caller.id);
+}
+}
+
+
+</script>  
+  
+</body>
